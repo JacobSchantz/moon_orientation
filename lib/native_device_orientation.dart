@@ -92,9 +92,9 @@ class NativeDeviceOrientationCommunicator {
       case 'LandscapeLeft':
         return NativeDeviceOrientation.landscapeLeft;
       case 'FaceUp':
-        return NativeDeviceOrientation.landscapeLeft;
+        return NativeDeviceOrientation.faceUp;
       case 'FaceDown':
-        return NativeDeviceOrientation.landscapeLeft;
+        return NativeDeviceOrientation.faceDown;
       default:
         return NativeDeviceOrientation.unknown;
     }
