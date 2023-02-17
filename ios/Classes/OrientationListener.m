@@ -17,7 +17,7 @@
     UIDevice *device = [UIDevice currentDevice];
     [device beginGeneratingDeviceOrientationNotifications];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    self.observer = [nc addObserverForName:UIApplicationDidChangeStatusBarOrientationNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
+    self.observer = [nc addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
 
         NSString* orientation = [self getDeviceOrientation];
 
@@ -37,18 +37,33 @@
 }
 
 - (NSString*)getDeviceOrientation {
-    switch ([UIApplication sharedApplication].statusBarOrientation) {
-        case UIInterfaceOrientationPortrait:
+    switch ([UIDevice currentDevice].orientation) {
+        case UIDeviceOrientationUnknown:
+            return UNKNOWN;
+         case UIDeviceOrientationPortrait:
             return PORTRAIT_UP;
-        case UIInterfaceOrientationPortraitUpsideDown:
+         case UIDeviceOrientationPortraitUpsideDown:
             return PORTRAIT_DOWN;
-        case UIInterfaceOrientationLandscapeRight:
-            // return left for right as UIInterfaceOrientation is 'the amount needed
-            // to rotate to get back to normal', not the actual rotation
+         case UIDeviceOrientationLandscapeLeft:
             return LANDSCAPE_LEFT;
-        case UIInterfaceOrientationLandscapeLeft:
-            // return right for left, see above
+        case UIDeviceOrientationLandscapeRight:
             return LANDSCAPE_RIGHT;
+        case UIDeviceOrientationFaceUp:
+            return PORTRAIT_UP;
+        case UIDeviceOrientationFaceDown:
+            return PORTRAIT_UP;
+
+        // case UIInterfaceOrientationPortrait:
+        //     return PORTRAIT_UP;
+        // case UIInterfaceOrientationPortraitUpsideDown:
+        //     return PORTRAIT_DOWN;
+        // case UIInterfaceOrientationLandscapeRight:
+        //     // return left for right as UIInterfaceOrientation is 'the amount needed
+        //     // to rotate to get back to normal', not the actual rotation
+        //     return LANDSCAPE_LEFT;
+        // case UIInterfaceOrientationLandscapeLeft:
+        //     // return right for left, see above
+        //     return LANDSCAPE_RIGHT;
         default:
             return UNKNOWN;
             break;
