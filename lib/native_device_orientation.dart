@@ -3,7 +3,15 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-enum NativeDeviceOrientation { portraitUp, portraitDown, landscapeLeft, landscapeRight, unknown }
+enum NativeDeviceOrientation {
+  portraitUp,
+  portraitDown,
+  landscapeLeft,
+  landscapeRight,
+  faceUp,
+  faceDown,
+  unknown,
+}
 
 class _OrientationStream {
   final Stream<NativeDeviceOrientation> stream;
@@ -70,8 +78,7 @@ class NativeDeviceOrientationCommunicator {
         useSensor: useSensor,
       );
     }
-    return _stream!.stream
-        .map((orientation) => (orientation == NativeDeviceOrientation.unknown) ? defaultOrientation : orientation);
+    return _stream!.stream.map((orientation) => (orientation == NativeDeviceOrientation.unknown) ? defaultOrientation : orientation);
   }
 
   NativeDeviceOrientation _fromString(String orientationString) {
@@ -84,7 +91,10 @@ class NativeDeviceOrientationCommunicator {
         return NativeDeviceOrientation.landscapeRight;
       case 'LandscapeLeft':
         return NativeDeviceOrientation.landscapeLeft;
-      case 'Unknown':
+      case 'FaceUp':
+        return NativeDeviceOrientation.landscapeLeft;
+      case 'FaceDown':
+        return NativeDeviceOrientation.landscapeLeft;
       default:
         return NativeDeviceOrientation.unknown;
     }
@@ -231,9 +241,7 @@ class NativeDeviceOrientationReaderState extends State<NativeDeviceOrientationRe
                   builder: (context, AsyncSnapshot<NativeDeviceOrientation> asyncResult) {
                     if (asyncResult.connectionState == ConnectionState.waiting) {
                       return _InheritedNativeDeviceOrientation(
-                        nativeOrientation: orientation == Orientation.landscape
-                            ? NativeDeviceOrientation.landscapeRight
-                            : NativeDeviceOrientation.portraitUp,
+                        nativeOrientation: orientation == Orientation.landscape ? NativeDeviceOrientation.landscapeRight : NativeDeviceOrientation.portraitUp,
                         child: Builder(builder: widget.builder),
                       );
                     } else {
@@ -276,6 +284,5 @@ class _InheritedNativeDeviceOrientation extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(_InheritedNativeDeviceOrientation oldWidget) =>
-      nativeOrientation != oldWidget.nativeOrientation;
+  bool updateShouldNotify(_InheritedNativeDeviceOrientation oldWidget) => nativeOrientation != oldWidget.nativeOrientation;
 }

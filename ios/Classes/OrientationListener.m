@@ -49,9 +49,9 @@
         case UIDeviceOrientationLandscapeRight:
             return LANDSCAPE_RIGHT;
         case UIDeviceOrientationFaceUp:
-            return PORTRAIT_UP;
+            return FACE_UP;
         case UIDeviceOrientationFaceDown:
-            return PORTRAIT_UP;
+            return FACE_DOWN;
 
         // case UIInterfaceOrientationPortrait:
         //     return PORTRAIT_UP;

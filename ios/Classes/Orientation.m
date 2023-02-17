@@ -11,4 +11,7 @@ NSString* const PORTRAIT_UP = @"PortraitUp";
 NSString* const PORTRAIT_DOWN = @"PortraitDown";
 NSString* const LANDSCAPE_LEFT = @"LandscapeLeft";
 NSString* const LANDSCAPE_RIGHT = @"LandscapeRight";
+NSString* const FACE_UP = @"FaceUp";
+NSString* const FACE_DOWN = @"FaceDown";
+
 NSString* const UNKNOWN = @"Unknown";

@@ -5,5 +5,7 @@ extern NSString* const PORTRAIT_UP;
 extern NSString* const PORTRAIT_DOWN;
 extern NSString* const LANDSCAPE_LEFT;
 extern NSString* const LANDSCAPE_RIGHT;
+extern NSString* const FACE_UP;
+extern NSString* const FACE_DOWN;
 extern NSString* const UNKNOWN;
 #endif /* Orientation_h */
