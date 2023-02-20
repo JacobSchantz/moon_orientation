@@ -8,6 +8,8 @@ import android.hardware.SensorManager;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.WindowManager;
+import android.provider.Settings;
+
 
 public class OrientationReader {
 
@@ -20,8 +22,8 @@ public class OrientationReader {
 
     @SuppressLint("SwitchIntDef")
     public NativeOrientation getOrientation() {
-        final int canAutoRotate = android.provider.Settings.System.getInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0) == 1;
-        if (canAutoRotate) {
+        final int canAutoRotate = android.provider.Settings.System.getInt(context.getContentResolver(), android.provider.Settings.System.ACCELEROMETER_ROTATION, 0);
+        if (canAutoRotate == 1) {
             return NativeOrientation.LandscapeLeft;
         } else {
             return NativeOrientation.LandscapeRight;
