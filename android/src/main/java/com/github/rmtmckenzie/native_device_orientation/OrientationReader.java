@@ -20,30 +20,37 @@ public class OrientationReader {
 
     @SuppressLint("SwitchIntDef")
     public NativeOrientation getOrientation() {
-        final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
-        final int orientation = context.getResources().getConfiguration().orientation;
-
-        NativeOrientation returnOrientation;
-
-        switch (orientation) {
-            case Configuration.ORIENTATION_PORTRAIT:
-                if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_90) {
-                    returnOrientation = NativeOrientation.PortraitUp;
-                } else {
-                    returnOrientation = NativeOrientation.PortraitDown;
-                }
-                break;
-            case Configuration.ORIENTATION_LANDSCAPE:
-                if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_90) {
-                    returnOrientation = NativeOrientation.LandscapeLeft;
-                } else {
-                    returnOrientation = NativeOrientation.LandscapeRight;
-                }
-                break;
-            default:
-                returnOrientation = NativeOrientation.Unknown;
+        final orientation = Settings.System.getInt(mContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION) == 1;
+        if (orientation) {
+            return NativeOrientation.Unknown;
+        } else {
+            return NativeOrientation.PortraitUp;
         }
 
-        return returnOrientation;
+        // final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+        // final int orientation = context.getResources().getConfiguration().orientation;
+
+        // NativeOrientation returnOrientation;
+
+        // switch (orientation) {
+        //     case Configuration.ORIENTATION_PORTRAIT:
+        //         if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_90) {
+        //             returnOrientation = NativeOrientation.PortraitUp;
+        //         } else {
+        //             returnOrientation = NativeOrientation.PortraitDown;
+        //         }
+        //         break;
+        //     case Configuration.ORIENTATION_LANDSCAPE:
+        //         if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_90) {
+        //             returnOrientation = NativeOrientation.LandscapeLeft;
+        //         } else {
+        //             returnOrientation = NativeOrientation.LandscapeRight;
+        //         }
+        //         break;
+        //     default:
+        //         returnOrientation = NativeOrientation.Unknown;
+        // }
+
+        // return returnOrientation;
     }
 }
