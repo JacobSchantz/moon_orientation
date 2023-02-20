@@ -20,13 +20,14 @@ public class OrientationReader {
 
     @SuppressLint("SwitchIntDef")
     public NativeOrientation getOrientation() {
-        final orientation = Settings.System.getInt(mContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION) == 1;
-        if (orientation) {
-            return NativeOrientation.Unknown;
+        final int canAutoRotate = android.provider.Settings.System.getInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0) == 1;
+        if (canAutoRotate) {
+            return NativeOrientation.LandscapeLeft;
         } else {
-            return NativeOrientation.PortraitUp;
+            return NativeOrientation.LandscapeRight;
         }
-
+        
+        // getWindowManager().getDefaultDisplay().getRotation()
         // final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
         // final int orientation = context.getResources().getConfiguration().orientation;
 
